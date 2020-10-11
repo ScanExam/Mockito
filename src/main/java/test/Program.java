@@ -6,27 +6,36 @@ import static org.mockito.Mockito.*;
 
 import java.util.List;
 
-import org.mockito.stubbing.OngoingStubbing;
-
+import org.junit.Test;
 
 
 public class Program 
 {
-	
-	public static void main(String[] args)
+	@Test
+	/* Test index incrementation */
+	public void testIncrementation()
 	{
 		MyClass instance = new MyClass();
 		MyClass mock = mock(MyClass.class);
 		
-		int index = instance.getIndex()+1;
+		
+		int index = instance.getIndex()+1; 
 		instance.incrementIndex();
 		when(mock.getIndex()).thenReturn(index);
 		mock.incrementIndex();
 		verify(mock, times(1)).incrementIndex();
 		assertEquals(mock.getIndex(),instance.getIndex());
+	}
+	@Test
+	public void testAdd()
+	{
+		MyClass instance = new MyClass();
+		MyClass mock = mock(MyClass.class);
 		
+		int value = 10;
 		
-		
-		
+		instance.addToList(value);
+		when(mock.getFromList(0)).thenReturn(10);
+		assertEquals(mock.getFromList(0),instance.getFromList(0));
 	}
 }
