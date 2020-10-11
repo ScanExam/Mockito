@@ -2,20 +2,31 @@ package test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
 import java.util.List;
 
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
+import org.mockito.Mock;
 
 
 public class Program 
 {
+	/*
+	 * We can also define mock like this (auto instantiated)
+	@Mock
+	private MyClass mock; 
+	*/ 
+
 	@Test
 	/* Test index incrementation */
 	public void testIncrementation()
 	{
 		MyClass instance = new MyClass();
+		
 		MyClass mock = mock(MyClass.class);
 		
 		
@@ -30,6 +41,7 @@ public class Program
 	public void testAdd()
 	{
 		MyClass instance = new MyClass();
+		
 		MyClass mock = mock(MyClass.class);
 		
 		int value = 10;
@@ -43,7 +55,9 @@ public class Program
 	public void anotherTestOfIncrementation()
 	{
 		MyClass instance = new MyClass();
+		
 		MyClass mock = mock(MyClass.class);
+		
 		
 		when(mock.getIndex()).thenReturn(1,2,3,4);
 		
@@ -53,4 +67,7 @@ public class Program
 			assertEquals(instance.getIndex(),mock.getIndex());
 		}
 	}
+	
+	 
+	
 }

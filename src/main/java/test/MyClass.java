@@ -1,6 +1,8 @@
 package test;
 
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
+
 import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
@@ -8,6 +10,7 @@ import java.util.ArrayList;
 class MyClass 
 {
 	private int index = 0;
+	
 	
 	private ArrayList<Integer> list = new ArrayList<Integer>();
 	
@@ -24,11 +27,12 @@ class MyClass
     	index++;
     }
     
+    
 	public int add (int a, int b) 
 	{
 		return a+b;
 	}
-    
+   
     public int getIndex()
     {
     	return index;
