@@ -24,5 +24,9 @@ public class Program
 		mock.incrementIndex();
 		verify(mock, times(1)).incrementIndex();
 		assertEquals(mock.getIndex(),instance.getIndex());
+		
+		
+		
+		
 	}
 }
