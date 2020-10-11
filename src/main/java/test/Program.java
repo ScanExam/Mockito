@@ -38,4 +38,19 @@ public class Program
 		when(mock.getFromList(0)).thenReturn(10);
 		assertEquals(mock.getFromList(0),instance.getFromList(0));
 	}
+	
+	@Test
+	public void anotherTestOfIncrementation()
+	{
+		MyClass instance = new MyClass();
+		MyClass mock = mock(MyClass.class);
+		
+		when(mock.getIndex()).thenReturn(1,2,3,4);
+		
+		for (int i = 0;i < 4;i++)
+		{
+			instance.incrementIndex();
+			assertEquals(instance.getIndex(),mock.getIndex());
+		}
+	}
 }
