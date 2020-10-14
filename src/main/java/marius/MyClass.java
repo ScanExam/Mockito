@@ -11,7 +11,6 @@ class MyClass
 {
 	private int index = 0;
 	
-	
 	private ArrayList<Integer> list = new ArrayList<Integer>();
 	
 	public void addToList(int value)
