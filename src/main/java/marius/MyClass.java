@@ -1,4 +1,4 @@
-package test;
+package marius;
 
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
