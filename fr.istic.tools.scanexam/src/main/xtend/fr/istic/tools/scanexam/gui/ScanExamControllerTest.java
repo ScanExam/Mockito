@@ -179,13 +179,20 @@ public class ScanExamControllerTest {
 	
 	
 	@Test
-	public void getCurrentPageIndex() {
+	public void getCurrentPageIndex_nextExam_prevExam() {
 		GradingData data2 =Mockito.mock(GradingData.class, Mockito.RETURNS_DEEP_STUBS);
 		ScanExamController instance = new ScanExamController(data2);
 		ScanExamController mock = mock(ScanExamController.class, Mockito.RETURNS_DEEP_STUBS);
 
 		Question mockQuestion = mock(Question.class, Mockito.RETURNS_DEEP_STUBS);
 
+		when(data2.getExam().getQuestions().size()).thenReturn(10);
+		int debut = instance.getCurrentPageIndex();
+		instance.nextExam();
+		instance.prevExam();
+		int fin = instance.getCurrentPageIndex();
+		instance.nextExam();
+		
 		when(data2.getExam().getQuestions().get(0)).thenReturn(mockQuestion);
 		when(mock.getCurrentPageIndex()).thenReturn(1);
 		
@@ -193,6 +200,7 @@ public class ScanExamControllerTest {
 		
 		verify(mock, times(1)).getCurrentPageIndex();
 		assertEquals(res,instance.getCurrentPageIndex());
+		assertEquals(debut,fin);
 	}
 	
 	
@@ -239,7 +247,7 @@ public class ScanExamControllerTest {
 	
 	
 	@Test
-	public void getNextQuestion() {
+	public void getNextQuestion_and_getPrevQuestion() {
 		GradingData data2 =Mockito.mock(GradingData.class, Mockito.RETURNS_DEEP_STUBS);
 		ScanExamController instance = new ScanExamController(data2);
 		ScanExamController mock = mock(ScanExamController.class, Mockito.RETURNS_DEEP_STUBS);
@@ -249,12 +257,19 @@ public class ScanExamControllerTest {
 		when(data2.getExam().getQuestions().get(0)).thenReturn(mockQuestion);
 		//when(mock.getNextQuestion()).thenReturn(mockQuestion);
 		
+		Question debut = instance.getCurrentQuestion();
 		instance.getNextQuestion();
 		mock.getNextQuestion();
+		
+		instance.getPrevQuestion();
+		Question fin = instance.getCurrentQuestion();
+		instance.getNextQuestion();
+		
 		Question res = mock.getCurrentQuestion();
 		
 		verify(mock, times(1)).getCurrentQuestion();
 		assertEquals(res,instance.getCurrentQuestion());
+		assertEquals(debut,fin);
 	}
 	
 
@@ -367,7 +382,52 @@ public class ScanExamControllerTest {
 	
 	
 	
+	@Test
+	public void test_getNbStudent() {
+		GradingData data2 =Mockito.mock(GradingData.class, Mockito.RETURNS_DEEP_STUBS);
+
+		ScanExamController instance = new ScanExamController(data2);
+
+		ScanExamController mock = mock(ScanExamController.class, Mockito.RETURNS_DEEP_STUBS);
+		
+		int value = 2;
+
+		doNothing().when(mock).increaseGrade();
+		when(mock.getNbStudent()).thenReturn(value);
 	
+		//Ajouter NumberPage
+		
+		assertEquals(mock.getNbStudent(),instance.getNbStudent());
+	}
+	
+	
+	
+	
+	@Test
+	public void gotoStudent_nextExam_prevExam() {
+		GradingData data2 =Mockito.mock(GradingData.class, Mockito.RETURNS_DEEP_STUBS);
+		ScanExamController instance = new ScanExamController(data2);
+		ScanExamController mock = mock(ScanExamController.class, Mockito.RETURNS_DEEP_STUBS);
+
+		Question mockQuestion = mock(Question.class, Mockito.RETURNS_DEEP_STUBS);
+
+		when(data2.getExam().getQuestions().size()).thenReturn(10);
+		long val =0;
+		instance.gotoStudent(val);
+		StudentGrade debut = instance.getCurrentStudent();
+		instance.nextExam();
+		instance.prevExam();
+		StudentGrade fin = instance.getCurrentStudent();
+		
+		
+		doNothing().when(mock).gotoStudent(val);
+		
+		mock.gotoStudent(val);
+		
+		verify(mock, times(1)).gotoStudent(val);
+		assertEquals(mock.getCurrentStudent(),instance.getCurrentStudent());
+		assertEquals(debut,fin);
+	}
 	
 
 
