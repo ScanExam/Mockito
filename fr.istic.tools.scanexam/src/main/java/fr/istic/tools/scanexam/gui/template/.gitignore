@@ -5,3 +5,17 @@
 /.QuestionSelectionApp.java._trace
 /.QuestionViewer.java._trace
 /.QuestionZoneSelectionPanel.java._trace
+/.CreateExamDialog.xtendbin
+/.ExamEditorController.xtendbin
+/.ImageLabel.xtendbin
+/.ImagesTableModel.xtendbin
+/.QuestionSelectionApp.xtendbin
+/.QuestionViewer.xtendbin
+/.QuestionZoneSelectionPanel.xtendbin
+/CreateExamDialog.java
+/ExamEditorController.java
+/ImageLabel.java
+/ImagesTableModel.java
+/QuestionSelectionApp.java
+/QuestionViewer.java
+/QuestionZoneSelectionPanel.java
