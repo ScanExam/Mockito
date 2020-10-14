@@ -10,6 +10,7 @@ import java.util.ArrayList;
 class MyClass 
 {
 	private int index = 0;
+	private String message = "default";
 	
 	
 	private ArrayList<Integer> list = new ArrayList<Integer>();
@@ -36,6 +37,14 @@ class MyClass
     public int getIndex()
     {
     	return index;
+    }
+    
+    public String getMessage() {
+    	return message;
+    }
+    
+    public void setMessage(String mess) {
+    	message = mess;
     }
     
 }
