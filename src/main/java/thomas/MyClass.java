@@ -17,8 +17,9 @@ class MyClass
 	
 	public void addToList(int value)
 	{
-		list.add(value);
+		list.add(value); 
 	}
+	
 	public int getFromList(int index)
 	{
 		return list.get(index);
@@ -27,6 +28,7 @@ class MyClass
     { 
     	index++;
     }
+    
     
     
 	public int add (int a, int b) 
