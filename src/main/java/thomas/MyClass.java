@@ -29,6 +29,11 @@ class MyClass
     	index++;
     }
     
+    public void incrementFive(){
+    	for(int i = 0; i <5 ; i++) {
+    		incrementIndex();
+    	}
+    }
     
     
 	public int add (int a, int b) 

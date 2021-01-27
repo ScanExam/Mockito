@@ -18,18 +18,112 @@ import java.util.List;
 
 import javax.management.RuntimeErrorException;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InOrder;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 
 
 
 public class TestThomas 
 {
 	
+	/**
+	 * Initialisation de Mockito
+	 */
+	@Before
+	public void setUp() {
+	    MockitoAnnotations.initMocks(this);
+	}
 	
-
+	
+	
+	@Test
+	public void testChangementValeur(){
+		
+		MyClass mock = mock(MyClass.class);
+		
+		assertEquals(mock.getMessage(), null); // null
+		mock.setMessage("Message");
+		assertEquals(mock.getMessage(), null); // toujours null
+	}
+	
+	/**
+	 * Pas de possibiliter de changer la valeur du message avec set vu que when defini le retour de getMessage
+	 */
+	@Test
+	public void testChangementValeurAvecDefinition(){
+		
+		MyClass mock = mock(MyClass.class);
+		when(mock.getMessage()).thenReturn("Ceci est un message non changeable");
+		
+		assertEquals(mock.getMessage(), "Ceci est un message non changeable");
+		mock.setMessage("Nouveaux massage pas possible");
+		assertEquals(mock.getMessage(), "Ceci est un message non changeable");
+	}
+	
+	
+	/**
+	 * Pas de possibiliter de changer la valeur du message avec set vu que when defini le retour de getMessage
+	 */
+	@Test
+	public void testChangementEnfinPossible(){
+		
+		MyClass mock = mock(MyClass.class);
+		
+		//On retablie le comportement normale d'une methode
+		when(mock.getMessage()).thenCallRealMethod();
+		//On le retablie ausi pour set (la forme de when et diferente entre les fonction void et les autres)
+		Mockito.doCallRealMethod().when(mock).setMessage(Mockito.anyString());
+		
+		assertEquals(mock.getMessage(), null);
+		mock.setMessage("Nouveaux massage possible");
+		assertEquals(mock.getMessage(), "Nouveaux massage possible");
+	}
+	
+	
+	
+	@Test
+	public void tesDeSpy(){
+		//Declaration de spy comme mock
+		MyClass spy = Mockito.spy(new MyClass());
+		Mockito.doReturn("Message").when(spy).getMessage();
+		
+		spy.setMessage("NewMessage");
+		
+		assertEquals(spy.getMessage(), "Message");
+	}
+	
+	
+	/**
+	 * Pour Mock, si une fonction n'a pas de comportement donnée par when alors son resultat est null
+	 */
+	@Test
+	public void mockVsSpy(){
+		//Declaration de spy comme mock
+		MyClass mock = mock(MyClass.class);
+		
+		mock.setMessage("NewMessage");
+		
+		assertEquals(mock.getMessage(), null);
+	}
+	
+	/**
+	 * Alors que pour Spy, si elle n'est pas defini par when alors c'est la fonction réel qui est appeler.
+	 */
+	@Test
+	public void spyVsMock(){
+		//Declaration de spy comme mock
+		MyClass spy = Mockito.spy(new MyClass());
+		
+		spy.setMessage("NewMessage");
+		
+		assertEquals(spy.getMessage(), "NewMessage");
+	}
+	
+	
 	
 	//Grace a mockito ,on peut verfier le nombre d'execution d'une fonction, grace a times ou nevers
 	//verify permet de verifier une condition ici le nombre d'execution
@@ -303,6 +397,8 @@ public class TestThomas
 
 
 	}
+	
+	
 	
 	@Test
 	public void spyMethod()
